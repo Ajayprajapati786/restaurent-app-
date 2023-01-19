@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"
+        integrity="sha512-L4lHq2JI/GoKsERT8KYa72iCwfSrKYWEyaBxzJeeITM9Lub5vlTj8tufqYk056exhjo2QDEipJrg6zen/DDtoQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <form onsubmit="save(event)">
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" class="form-control" id="amount" placeholder="amount">
+
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" placeholder="Description">
+
+                <label for="table">Table</label>
+                <select id="table" name="table" class="form-control">
+                    <option value="Table1">Table1</option>
+                    <option value="Table2">Table2</option>
+                    <option value="Table3">Table3</option>
+                </select>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+
+        <div id="content">
+            <div id="table1">
+                <h2>TABLE - 1</h2>
+            </div>
+
+            <div id="table2">
+                <h2>TABLE - 2</h2>
+            </div>
+
+            <div id="table3">
+                <h2>TABLE - 3</h2>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+        </script>
+    <script>
+        function save(event) {
+            event.preventDefault();
+            const amount = event.target.amount.value;
+            const description = event.target.description.value;
+            const table = event.target.table.value;
+            const obj = {
+                amount: amount,
+                description: description,
+                table: table
+            }
+
+            // axios.post("https://crudcrud.com/api/dae1466fde96423585d6166c2ae22f44/Table1", obj)
+            //         .then((response) => {
+            //             console.log(response)
+            //         })
+            //         .catch((err) => {
+            //             console.log(err)
+            //         })
+
+            if (table == 'Table1') {
+                axios.post("https://crudcrud.com/api/dae1466fde96423585d6166c2ae22f44/Table1", obj)
+                    .then((response) => {
+                        console.log("Added in table 1")
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            } else if (table == 'Table2') {
+                axios.post("https://crudcrud.com/api/dae1466fde96423585d6166c2ae22f44/Table2", obj)
+                    .then((response) => {
+                        console.log("Added in table 2")
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            } else if (table == 'Table3') {
+                axios.post("https://crudcrud.com/api/dae1466fde96423585d6166c2ae22f44/Table3", obj)
+                    .then((response) => {
+                        console.log("Added in table 3")
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            }
+
+
+        }
+
+        function showOnScreen() {
+            axios.get("https://crudcrud.com/api/dae1466fde96423585d6166c2ae22f44/Table1")
+                .then((response) => {
+                    var content="";
+                    for(var i=0;i<response.data.length;i++){
+                     content = `${content}  Table 1 - Amount is ${response.data[i].amount} Description is ${response.data[i].description}  Table number is ${response.data[i].table} <button ${onclick=delet}'(${response.data[i]._id,response.data[i].table})'> Delete</button> <br> `;
+                        
+                    document.getElementById("table1").innerHTML=`${content} <br/> <hr>`;
+                    console.log(response)
+
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+
+                axios.get("https://crudcrud.com/api/dae1466fde96423585d6166c2ae22f44/Table2")
+                .then((response) => {
+                    var content="";
+                    for(var i=0;i<response.data.length;i++){
+                     content = `${content}  Table 2 - Amount is ${response.data[i].amount} Description is ${response.data[i].description}  Table number is ${response.data[i].table}  <button ${onclick=delet}'(${response.data[i]._id,response.data[i].table})'> Delete</button> <br>`;
+                        
+                    document.getElementById("table2").innerHTML=`${content} <hr>`;
+                    console.log(response)
+
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+
+                axios.get("https://crudcrud.com/api/dae1466fde96423585d6166c2ae22f44/Table3")
+                .then((response) => {
+                    var content="";
+                    for(var i=0;i<response.data.length;i++){
+                     content = `${content}  Table 3 - Amount is ${response.data[i].amount} Description is ${response.data[i].description}  Table number is ${response.data[i].table} <button ${onclick=delet}'(${response.data[i]._id,response.data[i].table})'> Delete</button> <br>`;
+                        
+                    document.getElementById("table3").innerHTML=`${content} <hr>`;
+                    console.log(response)
+
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+
+
+        function delet(id,tno){
+            axios.delete(`https://crudcrud.com/api/dae1466fde96423585d6166c2ae22f44/${tno}/${id}`)
+            .then((response) => {
+                location.reload();
+                })
+            .catch((err) => {
+                    console.log(err)
+                })
+        }
+
+        
+        showOnScreen()
+
+
+        // function deleteUser(){
+        //     axios.delete("https://crudcrud.com/api/844511cdc38f4961a66f9ccde5fb6757/NewUser/63c60108d1a82b03e8b286cb")
+        //     .then((response)=>{
+        //         console.log("deleted");
+        //     })
+        //     .catch((err)=>{
+        //         console.log(err)
+        //     })
+
+        // }
+
+        // function showOnScreen(obj){
+        //     const parentElement = document.getElementById("content");
+        //     const childElem = document.createElement('li');
+        //     childElem.textContent = obj.expense + " " + obj.description + " "+ obj.Category;
+
+        //     const deleteButton = document.createElement('input');
+        //     deleteButton.type = 'button';
+        //     deleteButton.value = 'Delete';
+        //     deleteButton.onClick= () =>{
+        //         localStorage.removeItem(obj.expense);
+        //         parentElement.removeChild(childElem);
+        //     }
+
+        //     const editButton = document.createElement('input');
+        //     editButton.type = 'button';
+        //     editButton.value = 'Edit';
+        //     editButton.onClick= () =>{
+        //         localStorage.removeItem(obj.expense);
+        //         parentElement.removeChild(childElem);
+        //         document.getElementById("expense").value=obj.expense;
+        //         document.getElementById("description").value=obj.description;
+        //         document.getElementById("Category").value=obj.Category;
+        //     }
+
+        //     childElem.appendChild(editButton);
+        //     childElem.appendChild(deleteButton);
+        //     parentElement.appendChild(childElem);
+        // }
+    </script>
+</body>
+
+</html>
